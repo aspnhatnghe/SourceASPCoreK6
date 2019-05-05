@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "MyForm";
+}
+
+<h2>MyForm</h2>
+<h1>Nhất Nghệ</h1>
+Sử dụng cú pháp Razor để viết code
+C# trong View
+@{ 
+    int n = 13;
+}
+@for(int i = 1; i < 11; i++)
+{
+    int kq = n * i;
+    <div>@n  x @i = @kq</div>
+}
+

@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Mang";
+}
+
+<h2>Mảng</h2>
+@{ 
+    Random rd = new Random();
+    //rd.Next(), rd.Next(max), rd.Next(min, max)
+    int soPhanTu = rd.Next(10, 1000);
+
+    //Mảng động chỉ số là số : List
+    //khai báo mảng động các số nguyên
+    List<int> mangNguyen = new List<int>();
+
+    for (int i = 0; i < soPhanTu; i++)
+    {
+        //thêm 1 phần tử vào mảng
+        mangNguyen.Add(rd.Next(10, 1000));
+    }
+
+    //các hàm trong List: .Contains(), IndexOf(), Remove()
+}
+
+Mảng @soPhanTu ngẫu nhiên:
+@string.Join(", ", mangNguyen)
+
+@foreach(var temp in mangNguyen)
+{
+    <div>@temp</div>
+}
+
+@{ 
+    //Mảng động kiểu tùy ý ([key] = value)
+    Dictionary<string, double> dsHV = new Dictionary<string, double>();
+    dsHV.Add("Lê", 7.7);
+    //dsHV.Add("Lê", 7.8);
+    dsHV["Tèo"] = 9.8;
+    dsHV["Tèo"] = 9.1;
+    dsHV["Đào"] = 6.8;
+    dsHV["Cam"] = 4.8;
+    dsHV["Mận"] = 3.8;
+    dsHV["Tý"] = 7.8;
+}
+
+@foreach(var key in dsHV.Keys)
+{
+    <div>@dsHV[key]</div>
+}
+
