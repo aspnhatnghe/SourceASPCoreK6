@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <style>
+        .loi{background-color:red; color:white;}
+    </style>
+</head>
+<body>    
+    <div>Username: <input id="txtUser" /></div>
+    <div>Password: <input id="txtPass" type="password" /></div>
+    <button type="button" id="btnLogin">Login</button>
+    <div id="message"></div>
+    <script>
+        $(function () {
+            $("#btnLogin").click(function () {
+                var user = $("#txtUser");
+                var pass = $("#txtPass");
+
+                //nếu đang là Logout
+                if ($(this).html() == "Logout") {
+                    $(this).html("Login");
+                    //bỏ thẻ được thêm sau thẻ input
+                    user.next().remove();
+                    pass.next().remove();
+                    //hiện thẻ input ra
+                    user.show(); pass.show();
+                    user.val(""); pass.val("");
+                    $("#message").html("");
+                    return true;
+                }
+
+                //nếu 1 trong 2 rỗng
+                if (user.val().length == 0 || pass.val().length == 0) {
+                    $("#message").html("Chưa nhập thông tin!");
+                    user.addClass("loi");
+                    pass.addClass("loi");
+                    return false;
+                }
+
+                //nếu nhập >= 5 kí tự là thành công
+                if (user.val().length < 5 || pass.val().length <= 5) {
+                    $("#message").html("Sai thông tin đăng nhập");
+                    return false;
+                }
+
+                $("#message").html("Đăng nhập thành công");
+                if (user.hasClass("loi")) user.removeClass("loi");
+                pass.removeClass("loi");
+                $(this).html("Logout");
+
+                //Thêm vào sai user/pass thẻ div chứa nd nhập
+                user.after("<div>" + user.val() + "</div>");
+                pass.after("<div>" + pass.val() + "</div>");
+                //ẩn ô nhập
+                user.hide(); pass.hide();
+                return true;
+            });
+        });
+    </script>
+</body>
+</html>
