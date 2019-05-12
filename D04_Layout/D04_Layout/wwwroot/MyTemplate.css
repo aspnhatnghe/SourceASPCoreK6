@@ -1,0 +1,6 @@
+﻿.nn-header{height:170px; border:1px solid green; position:relative;}
+.nn-company{position:absolute; top: 45px; left: 20px; text-shadow: 0 0 4px black;}
+.nn-slogan{position:absolute; top: 95px; left: 20px;border-top:1px dotted blue; }
+.nn-sheet{min-height:400px; box-shadow: 0 0 5px lightgray; 
+          border:1px dashed green; margin: 0 3px;
+          border-radius: 5px; padding:5px;}
