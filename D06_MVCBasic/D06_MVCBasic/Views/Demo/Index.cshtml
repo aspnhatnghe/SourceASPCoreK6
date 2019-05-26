@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Danh sách Hàng hóa</h2>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Hình</th><th>Tên</th>
+            <th>Giá</th><th>Số lượng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (HangHoa hh in ViewBag.HangHoa)
+        {
+            <tr>
+                <td><img src="~/HangHoa/@hh.Hinh" height="80" /></td>
+                <td>@hh.TenHh</td>
+                <td>@hh.DonGia.ToString("#,##0") đ</td>
+                <td>@hh.SoLuong</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,65 @@
+﻿@model D06_MVCBasic.Models.HangHoa
+
+@{
+    ViewData["Title"] = "DocGhiFile";
+    HangHoa hh = (ViewBag.HangHoa != null) ? (HangHoa)ViewBag.HangHoa : new HangHoa();
+}
+
+<h2>Đọc Ghi thông tin Hàng hóa</h2>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        @if (ViewBag.ThongBao != null)
+        {
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@ViewBag.ThongBao</strong>
+        </div>
+        }
+        @if (ViewBag.Loi != null)
+        {
+            <div class="alert alert-danger">
+                <strong>@ViewBag.Loi</strong>
+            </div>
+        }
+        <form asp-action="DocGhiFile">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaHh" class="control-label"></label>
+                <input asp-for="MaHh" value="@hh.MaHh" class="form-control" />
+                <span asp-validation-for="MaHh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenHh" class="control-label"></label>
+                <input asp-for="TenHh" value="@hh.TenHh" class="form-control" />
+                <span asp-validation-for="TenHh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hinh" class="control-label"></label>
+                <input asp-for="Hinh" value="@hh.Hinh" class="form-control" />
+                <span asp-validation-for="Hinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DonGia" class="control-label"></label>
+                <input asp-for="DonGia" value="@hh.DonGia" class="form-control" />
+                <span asp-validation-for="DonGia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuong" class="control-label"></label>
+                <input asp-for="SoLuong" value="@hh.SoLuong" class="form-control" />
+                <span asp-validation-for="SoLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ghi file text" class="btn btn-primary" name="Ghi" />
+                <input type="submit" value="Ghi file JSON" class="btn btn-primary" name="Ghi" />
+                <a asp-action="ReadTextFile" class="btn btn-success">Đọc file text</a>
+                <a asp-action="ReadJsonFile" class="btn btn-success">Đọc file JSON</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
