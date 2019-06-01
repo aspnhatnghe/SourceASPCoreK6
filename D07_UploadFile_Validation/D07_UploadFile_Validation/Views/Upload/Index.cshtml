@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Demo Upload File</h1>
+
+<form enctype="multipart/form-data" 
+asp-action="UploadFile">
+    <h2>Upload Single File</h2>
+    Tên: <input name="Ten" placeholder="Tên" /><br />
+    Chọn file:
+    <input name="myfile" type="file" />
+    <button>Upload</button>
+    <br />@ViewBag.ThongBao
+</form>
+
+<hr />
+
+<form enctype="multipart/form-data"
+      asp-action="UploadFiles">
+    <h2>Upload Multi File</h2>
+    Chọn file:
+    <input name="myfile" type="file" multiple />
+    <button>Upload</button>
+    <br />@ViewBag.Message
+</form>
+
