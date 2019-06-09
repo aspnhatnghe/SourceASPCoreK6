@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!---Chèn CSS : Bootstrap-->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header id="myHeader"></header>
+        <nav></nav>
+        <div>
+            <aside class="col-md-3 bg-light">                
+                @RenderSection("GioHang", required:false)
+                @await Html.PartialAsync("_ChungLoai")
+                @{ 
+                    string[] danhMuc = { "Bia", "Nước ngọt", "Tivi", "Tủ lạnh", "máy điều hòa"};
+                    await Html.RenderPartialAsync("_Category", danhMuc);
+                }
+            </aside>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+        <footer>
+            Bản quyền thuộc về Nhất Nghệ &copy; 2019
+            @RenderSection("TacGia", required:false)
+        </footer>
+    </div>
+    @RenderSection("QuangCao", required:false)
+    <!---Chèn JS-->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    @RenderSection("Scripts", required:false)
+</body>
+</html>

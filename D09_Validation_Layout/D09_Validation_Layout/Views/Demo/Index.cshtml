@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Demo jQuery Validation</h1>
+Hôm nay còn 2 case của jQuery validation:
+<ol>
+    <li>remote : gửi lên server validate</li>
+    <li>custom : tự định thuộc tính kiểm tra
+        <ul>
+            <li>B1: Định nghĩa hàm kiểm tra (luôn có 2 tham số (value, object) và trả về true/false)</li>
+            <li>B2: Gắn hàm kiểm tra vào trong jQuery validate</li>
+        </ul>
+    </li>
+</ol>
+
+<form id="form1">
+    <h1>Đăng ký Thành viên</h1>
+    <div>
+        Gmail: <input name="Email" />
+    </div>
+    <div>
+        Số di động: <input name="DienThoai" />
+    </div>
+    Mã bảo mật: <input name="MaBaoMat" />
+    <span class="text-danger">
+        @using Microsoft.AspNetCore.Http;
+        @Context.Session.GetString("MaNgauNhien")
+    </span><br />
+    <button>Gửi đăng ký</button>
+</form>
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script>
+        //Bước 1: Định nghĩa hàm
+        function laGmail(value, element) {
+            //khai báo mẫu/pattern/template (bắt đầu /^ và kết thúc bởi $) ~ Regular Expression
+            //var gmailPattern = /^[a-z]+@@gmail.com$/;
+            var gmailPattern = /^[a-z](.[a-z]+)*@@gmail.com$/;
+            return gmailPattern.test(value) || this.optional(element);
+        }
+
+        function laSoDiDong(value, element) {
+            var pattern = /^0[35789][0-9]{8}$/;
+            return pattern.test(value) || this.optional(element);
+        }
+
+        //Bước 2: Gắn
+        $.validator.addMethod("gmail", laGmail, "Không là Gmail");
+        $.validator.addMethod("sodidong", laSoDiDong, "Không phải số di động Việt Nam");
+
+        $(function () {
+            $("#form1").validate({
+                rules: {
+                    MaBaoMat: { remote: "/Demo/KiemTraBaoMat" },
+                    Email: {gmail:true},
+                    DienThoai: {sodidong:true}
+                },
+                messages: {
+                    MaBaoMat: { remote: "Chưa khớp" }
+                }
+            });
+        });
+    </script>
+}
+
+@section TacGia{ 
+    Trần Văn Tèo
+}
