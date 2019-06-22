@@ -1,0 +1,16 @@
+﻿{
+  "Message": "Nhất Nghệ",
+  "MyConfig": {
+    "Config1": "105 Bà Huyện Thanh Quan",
+    "Config2": 38294949,
+    "Config3": 1900.1509,
+    "Data": {
+      "Name": "ASP.NET Core",
+      "Version":  2.2
+    }
+  },
+  "ConnectionStrings": {
+    "MyeStore": "Server=.; Database=MyeStore; Integrated Security=true;",
+    "Database2": "Server=.; Database=eStore2; User Id=sa; Password=123456;"
+  }
+}
