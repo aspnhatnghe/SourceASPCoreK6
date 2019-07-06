@@ -1,0 +1,26 @@
+﻿@model IEnumerable<D15_EFCore_DBFirst.Models.HangHoa>
+@{
+    ViewData["Title"] = "TimKiem";
+
+}
+
+<h2>Tìm kiếm</h2>
+<form>
+    Tìm : <input name="TuKhoa" />
+    giá từ: <input name="GiaTu" type="number" min="0" />
+    đến: <input name="GiaDen" type="number" min="0" />
+    <button>Tìm kiếm</button>
+</form>
+<table class="table table-condensed">
+    @foreach(var hh in Model)
+    {
+        <tr>
+            <td>@hh.TenHh</td>
+            <td>
+                <img src="~/Hinh/HangHoa/@hh.Hinh" width="80" />
+            </td>
+            <td>@hh.DonGia.Value.ToString("#,##0") đ</td>
+            <td>@hh.MaLoaiNavigation.TenLoai</td>
+        </tr>
+    }
+</table>
