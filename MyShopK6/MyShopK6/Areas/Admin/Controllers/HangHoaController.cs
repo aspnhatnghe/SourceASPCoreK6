@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +49,11 @@ namespace MyShopK6.Areas.Admin.Controllers
         // GET: Admin/HangHoa/Create
         public IActionResult Create()
         {
-            ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "MaLoai");
+            //ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "TenLoai");
+            ViewBag.Loai = new MySelectList<Loai>
+            {
+                Data = _context.Loais.ToList()
+            };
             return View();
         }
 
@@ -57,15 +62,21 @@ namespace MyShopK6.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaHh,TenHh,Hinh,MoTa,DonGia,SoLuong,MaLoai")] HangHoa hangHoa)
+        public async Task<IActionResult> Create([Bind("MaHh,TenHh,Hinh,MoTa,DonGia,SoLuong,MaLoai")] HangHoa hangHoa, IFormFile fHinh)
         {
             if (ModelState.IsValid)
             {
+                hangHoa.Hinh = MyTool.UploadHinh(fHinh, "HangHoa");
                 _context.Add(hangHoa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "MaLoai", hangHoa.MaLoai);
+            //ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "TenLoai", hangHoa.MaLoai);
+            ViewBag.Loai = new MySelectList<Loai>
+            {
+                Data = _context.Loais.ToList(),
+                Selected = hangHoa.MaLoai
+            };
             return View(hangHoa);
         }
 
@@ -82,7 +93,12 @@ namespace MyShopK6.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "MaLoai", hangHoa.MaLoai);
+            //ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "MaLoai", hangHoa.MaLoai);
+            ViewBag.Loai = new MySelectList<Loai>
+            {
+                Data = _context.Loais.ToList(),
+                Selected = hangHoa.MaLoai
+            };
             return View(hangHoa);
         }
 
@@ -91,7 +107,7 @@ namespace MyShopK6.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaHh,TenHh,Hinh,MoTa,DonGia,SoLuong,MaLoai")] HangHoa hangHoa)
+        public async Task<IActionResult> Edit(int id, [Bind("MaHh,TenHh,Hinh,MoTa,DonGia,SoLuong,MaLoai")] HangHoa hangHoa, IFormFile fHinh)
         {
             if (id != hangHoa.MaHh)
             {
@@ -102,6 +118,10 @@ namespace MyShopK6.Areas.Admin.Controllers
             {
                 try
                 {
+                    if(fHinh != null)
+                    {
+                        hangHoa.Hinh = MyTool.UploadHinh(fHinh, "HangHoa");
+                    }
                     _context.Update(hangHoa);
                     await _context.SaveChangesAsync();
                 }

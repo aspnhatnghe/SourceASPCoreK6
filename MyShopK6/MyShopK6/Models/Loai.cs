@@ -21,8 +21,10 @@ namespace MyShopK6.Models
         [MaxLength(150)]
         [Display(Name = "Hình")]
         public string Hinh { get; set; }
+        [Display(Name = "Loại")]
         //Null hoặc 0 : level 1
         public int? MaLoaiCha { get; set; }
+        [Display(Name = "Loại")]
         [ForeignKey("MaLoaiCha")]
         public Loai LoaiCha { get; set; }
     }

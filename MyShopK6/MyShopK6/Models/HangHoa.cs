@@ -20,6 +20,7 @@ namespace MyShopK6.Models
         [Display(Name = "Hình")]
         public string Hinh { get; set; }
         [Display(Name = "Mô tả")]
+        [DataType(DataType.MultilineText)]
         public string MoTa { get; set; }
         [Display(Name = "Đơn giá")]
         public double DonGia { get; set; }
