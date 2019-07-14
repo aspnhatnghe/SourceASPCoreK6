@@ -23,7 +23,7 @@ namespace MyShopK6.Areas.Admin.Controllers
         // GET: Admin/HangHoa
         public async Task<IActionResult> Index()
         {
-            var myDbContext = _context.HangHoas.Include(h => h.Loai);
+            var myDbContext = _context.HangHoas.Include(h => h.Loai).Include(h=>h.ThuongHieu);
             return View(await myDbContext.ToListAsync());
         }
 
@@ -54,6 +54,7 @@ namespace MyShopK6.Areas.Admin.Controllers
             {
                 Data = _context.Loais.ToList()
             };
+            ViewBag.ThuongHieu = new SelectList(_context.ThuongHieus, "MaTh", "TenThuongHieu");
             return View();
         }
 
@@ -62,7 +63,7 @@ namespace MyShopK6.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaHh,TenHh,Hinh,MoTa,DonGia,SoLuong,MaLoai")] HangHoa hangHoa, IFormFile fHinh)
+        public async Task<IActionResult> Create(HangHoa hangHoa, IFormFile fHinh)
         {
             if (ModelState.IsValid)
             {
@@ -77,6 +78,7 @@ namespace MyShopK6.Areas.Admin.Controllers
                 Data = _context.Loais.ToList(),
                 Selected = hangHoa.MaLoai
             };
+            ViewBag.ThuongHieu = new SelectList(_context.ThuongHieus, "MaTh", "TenThuongHieu", hangHoa.MaTh);
             return View(hangHoa);
         }
 
@@ -99,6 +101,7 @@ namespace MyShopK6.Areas.Admin.Controllers
                 Data = _context.Loais.ToList(),
                 Selected = hangHoa.MaLoai
             };
+            ViewBag.ThuongHieu = new SelectList(_context.ThuongHieus, "MaTh", "TenThuongHieu", hangHoa.MaTh);
             return View(hangHoa);
         }
 
@@ -107,7 +110,7 @@ namespace MyShopK6.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaHh,TenHh,Hinh,MoTa,DonGia,SoLuong,MaLoai")] HangHoa hangHoa, IFormFile fHinh)
+        public async Task<IActionResult> Edit(int id, HangHoa hangHoa, IFormFile fHinh)
         {
             if (id != hangHoa.MaHh)
             {
@@ -138,7 +141,13 @@ namespace MyShopK6.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "MaLoai", hangHoa.MaLoai);
+            //ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "MaLoai", hangHoa.MaLoai);
+            ViewBag.Loai = new MySelectList<Loai>
+            {
+                Data = _context.Loais.ToList(),
+                Selected = hangHoa.MaLoai
+            };
+            ViewBag.ThuongHieu = new SelectList(_context.ThuongHieus, "MaTh", "TenThuongHieu", hangHoa.MaTh);
             return View(hangHoa);
         }
 

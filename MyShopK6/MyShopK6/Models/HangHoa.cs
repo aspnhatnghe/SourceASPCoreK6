@@ -13,7 +13,8 @@ namespace MyShopK6.Models
         [Key]
         [Display(Name = "Mã hàng hóa")]
         public int MaHh { get; set; }
-        [MaxLength(50)]
+        [MaxLength(150)]
+        [Required(ErrorMessage ="*")]
         [Display(Name = "Tên hàng hóa")]
         public string TenHh { get; set; }
         [MaxLength(150)]
@@ -29,6 +30,14 @@ namespace MyShopK6.Models
         [Display(Name = "Loại")]
         public int MaLoai { get; set; }
         [ForeignKey("MaLoai")]
+        [Display(Name = "Loại")]
         public Loai Loai { get; set; }
+
+        [MaxLength(50)]
+        [Display(Name ="Thương hiệu")]
+        public string MaTh { get; set; }
+        [ForeignKey("MaTh")]
+        [Display(Name = "Thương hiệu")]
+        public ThuongHieu ThuongHieu { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace MyShopK6.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -32,16 +32,22 @@ namespace MyShopK6.Migrations
 
                     b.Property<int>("MaLoai");
 
+                    b.Property<string>("MaTh")
+                        .HasMaxLength(50);
+
                     b.Property<string>("MoTa");
 
                     b.Property<int>("SoLuong");
 
                     b.Property<string>("TenHh")
-                        .HasMaxLength(50);
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.HasKey("MaHh");
 
                     b.HasIndex("MaLoai");
+
+                    b.HasIndex("MaTh");
 
                     b.ToTable("HangHoa");
                 });
@@ -69,12 +75,40 @@ namespace MyShopK6.Migrations
                     b.ToTable("Loai");
                 });
 
+            modelBuilder.Entity("MyShopK6.Models.ThuongHieu", b =>
+                {
+                    b.Property<string>("MaTh")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("DiaChi")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("DienThoai")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Logo")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("TenThuongHieu")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("MaTh");
+
+                    b.ToTable("ThuongHieu");
+                });
+
             modelBuilder.Entity("MyShopK6.Models.HangHoa", b =>
                 {
                     b.HasOne("MyShopK6.Models.Loai", "Loai")
                         .WithMany()
                         .HasForeignKey("MaLoai")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MyShopK6.Models.ThuongHieu", "ThuongHieu")
+                        .WithMany()
+                        .HasForeignKey("MaTh");
                 });
 
             modelBuilder.Entity("MyShopK6.Models.Loai", b =>

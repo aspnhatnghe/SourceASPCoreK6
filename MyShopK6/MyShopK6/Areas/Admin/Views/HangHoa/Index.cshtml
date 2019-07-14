@@ -1,20 +1,14 @@
 ﻿@model IEnumerable<MyShopK6.Models.HangHoa>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hàng hóa";
 }
 
-<h2>Index</h2>
-<style>
-    .img-height-100px{
-        max-height:100px;
-    }
-</style>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<h2>Danh sách Hàng hóa</h2>
+<div class="text-right mb-2">
+    <a asp-action="Create" class="btn btn-success">Tạo mới</a>
+</div>
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
@@ -32,6 +26,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Loai)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThuongHieu)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -45,8 +42,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TenHh)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DonGia)
+                <td class="text-right">
+                    @item.DonGia.ToVND()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SoLuong)
@@ -54,8 +51,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Loai.TenLoai)
                 </td>
+                <td>@item.ThuongHieu.MaTh</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaHh">Edit</a> |
+                    <a asp-action="Edit" asp-route-id="@item.MaHh" class="btn btn-primary">Sửa</a> |
                     <a asp-action="Details" asp-route-id="@item.MaHh">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.MaHh">Delete</a> |
                     <button type="button" data-mahh="@item.MaHh" data-tenhh="@item.TenHh" class="btn btn-danger xoahh">Xóa</button>
@@ -64,7 +62,6 @@
         }
     </tbody>
 </table>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.13.4/dist/sweetalert2.all.min.js"></script>
 <script>
     $(function () {
         $(".xoahh").click(function () {

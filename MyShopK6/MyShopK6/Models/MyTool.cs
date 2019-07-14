@@ -12,7 +12,7 @@ namespace MyShopK6.Models
         public static string UploadHinh(IFormFile fHinh, string folder)
         {
             string fileNameReturn = string.Empty;
-            if(fHinh != null)
+            if (fHinh != null)
             {
                 fileNameReturn = $"_{DateTime.Now.Ticks}{fHinh.FileName}";
                 var fileName = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Hinh", folder, fileNameReturn);
@@ -22,6 +22,14 @@ namespace MyShopK6.Models
                 }
             }
             return fileNameReturn;
+        }
+    }
+
+    public static class StaticClass
+    {
+        public static string ToVND(this double dongia)
+        {
+            return $"{dongia.ToString("#,##0")} đ";
         }
     }
 }
