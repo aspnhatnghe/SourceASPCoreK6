@@ -14,7 +14,7 @@
                 @foreach (var loc in dsLoaiCon)
                 {
                     <li class="menu-item">
-                        <div class="title"> <a href="shop_grid.html">@loc.TenLoai</a></div>
+                        <div class="title"> <a asp-controller="HangHoa" asp-action="Index" asp-route-id="@loc.MaLoai">@loc.TenLoai</a></div>
                     </li>
                 }
             </ul>
