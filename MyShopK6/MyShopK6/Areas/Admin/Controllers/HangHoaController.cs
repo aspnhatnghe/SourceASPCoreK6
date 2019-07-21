@@ -27,24 +27,7 @@ namespace MyShopK6.Areas.Admin.Controllers
             return View(await myDbContext.ToListAsync());
         }
 
-        // GET: Admin/HangHoa/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var hangHoa = await _context.HangHoas
-                .Include(h => h.Loai)
-                .FirstOrDefaultAsync(m => m.MaHh == id);
-            if (hangHoa == null)
-            {
-                return NotFound();
-            }
-
-            return View(hangHoa);
-        }
+        
 
         // GET: Admin/HangHoa/Create
         public IActionResult Create()

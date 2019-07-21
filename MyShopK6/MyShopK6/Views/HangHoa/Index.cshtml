@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<HangHoaView>
 @{
-    ViewData["Title"] = "Index";
+    string loai = "Tất cả Sản phẩm";
+    if (ViewBag.Loai != null)
+    {
+        loai = (ViewBag.Loai as Loai).TenLoai;
+    }
+    ViewData["Title"] = loai;
 }
 
 
@@ -8,15 +13,7 @@
     <div class="shop-inner">
         <div class="page-title">
             <h2>
-                @if (ViewBag.Loai != null)
-                {
-                    var loai = ViewBag.Loai as Loai;
-                    @loai.TenLoai
-                }
-                else
-                {
-                    @:Tất cả sản phẩm
-                }
+                @loai
             </h2>
         </div>
         <div class="toolbar">
