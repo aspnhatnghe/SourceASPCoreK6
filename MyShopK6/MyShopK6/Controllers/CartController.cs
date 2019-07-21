@@ -34,7 +34,7 @@ namespace MyShopK6.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(Cart);
         }
 
         [HttpPost]
@@ -66,6 +66,21 @@ namespace MyShopK6.Controllers
 
             //update lại giỏ hàng
             HttpContext.Session.SetObject("GioHang", carts);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult RemoveCart(int id)
+        {
+            List<CartItem> carts = Cart;
+
+            CartItem item = carts.SingleOrDefault(p => p.HangHoa.MaHh == id);
+            if(item != null)
+            {
+                carts.Remove(item);
+
+                HttpContext.Session.SetObject("GioHang", carts);
+            }
 
             return RedirectToAction("Index");
         }

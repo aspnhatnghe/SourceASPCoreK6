@@ -22,5 +22,6 @@ namespace MyShopK6.Models
         public int SoLuong { get; set; }
         [Display(Name = "Giảm giá (%)")]        
         public int GiamGia { get; set; }
+        public double GiaBan => DonGia * (1 - GiamGia / 100.0);
     }
 }
