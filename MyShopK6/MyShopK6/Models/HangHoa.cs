@@ -27,6 +27,11 @@ namespace MyShopK6.Models
         public double DonGia { get; set; }
         [Display(Name = "Số lượng")]
         public int SoLuong { get; set; }
+
+        [Display(Name = "Giảm giá (%)")]
+        [Range(0, 100)]
+        public int GiamGia { get; set; }
+
         [Display(Name = "Loại")]
         public int MaLoai { get; set; }
         [ForeignKey("MaLoai")]

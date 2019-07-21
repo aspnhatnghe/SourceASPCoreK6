@@ -35,5 +35,18 @@ namespace MyShopK6.Controllers
 
             return View(hangHoas);
         }
+
+        public IActionResult ChiTiet(int id)
+        {
+            HangHoa hh = ctx.HangHoas.SingleOrDefault(p => p.MaHh == id);
+            if(hh != null)
+            {
+                HangHoaChiTiet hhct = mapper.Map<HangHoaChiTiet>(hh);
+
+                return View(hhct);
+            }
+
+            return RedirectToAction(controllerName: "Home", actionName: "Error");
+        }
     }
 }

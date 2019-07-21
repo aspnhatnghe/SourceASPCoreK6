@@ -21,6 +21,9 @@
                 @Html.DisplayNameFor(model => model.DonGia)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.GiamGia)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.SoLuong)
             </th>
             <th>
@@ -45,6 +48,7 @@
                 <td class="text-right">
                     @item.DonGia.ToVND()
                 </td>
+                <td>@item.GiamGia</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SoLuong)
                 </td>

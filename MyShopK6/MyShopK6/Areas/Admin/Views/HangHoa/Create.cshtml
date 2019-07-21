@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="MaTh" class="control-label"></label>
-                <select asp-for="MaTh" class ="form-control" asp-items="ViewBag.ThuongHieu"></select>
+                <select asp-for="MaTh" class="form-control" asp-items="ViewBag.ThuongHieu"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TenHh" class="control-label"></label>
@@ -41,6 +41,11 @@
                 <span asp-validation-for="DonGia" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="GiamGia" class="control-label"></label>
+                <input asp-for="GiamGia" class="form-control" />
+                <span asp-validation-for="GiamGia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="SoLuong" class="control-label"></label>
                 <input asp-for="SoLuong" class="form-control" />
                 <span asp-validation-for="SoLuong" class="text-danger"></span>
@@ -53,16 +58,15 @@
     </div>
 </div>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script>
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 <script>
-    $(function () {
-        ClassicEditor
-            .create(document.querySelector('#MoTa'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+    $(document).ready(function () {
+        $('#MoTa').summernote({
+            placeholder: 'Thông tin chi tiết hàng hóa',
+            tabsize: 2,
+            height: 200
+        });
     });
 </script>

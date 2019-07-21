@@ -11,6 +11,8 @@ namespace MyShopK6.Models
         public MyMap()
         {
             CreateMap<HangHoa, HangHoaView>().ReverseMap();
+            //map 1 chiều từ HangHoa --> HangHoaChiTiet
+            CreateMap<HangHoa, HangHoaChiTiet>();
         }
     }
 }
