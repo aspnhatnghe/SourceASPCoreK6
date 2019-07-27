@@ -55,7 +55,9 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="4"><strong>Tổng tiền</strong></td>
-                                        <td colspan="2"><strong>@Model.Sum(p => p.ThanhTien).ToVND() </strong></td>
+                                        <td colspan="2">
+                                            <span id="TongTien" class="text-danger font-weight-bolder">@Model.Sum(p => p.ThanhTien).ToVND() </span>
+                                        </td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -80,11 +82,14 @@
                     url: "/Cart/RemoveCart",
                     method: "GET",
                     data: {
-                        id: $(this).attr("data-id")
+                        id: $(this).attr("data-id"),
+                        loai: "AJAX"
                     },
                     success: function (result) {
+                        console.log(result);
                         //xóa dòng đang chọn
                         row.remove();
+                        $("#TongTien").html(result.tongTien.toLocaleString() + " đ");
                     }
                 });
             });

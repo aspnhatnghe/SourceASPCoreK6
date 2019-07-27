@@ -48,5 +48,21 @@ namespace MyShopK6.Controllers
 
             return RedirectToAction(controllerName: "Home", actionName: "Error");
         }
+
+        public IActionResult TimKiem(string TuKhoa, int? MaLoai)
+        {
+            var dsHangHoa = ctx.HangHoas
+                .Where(p => p.TenHh.ToLower().Contains(TuKhoa))
+                .AsQueryable();
+            if (MaLoai.HasValue)
+            {
+                dsHangHoa = dsHangHoa.Where(p => p.MaLoai == MaLoai);
+            }            
+
+            //map HangHoa ---> HangHoaView
+            var hangHoas = mapper.Map<List<HangHoaView>>(dsHangHoa.ToList());
+
+            return PartialView(hangHoas);
+        }
     }
 }

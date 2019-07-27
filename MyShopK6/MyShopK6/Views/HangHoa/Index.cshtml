@@ -8,6 +8,7 @@
     ViewData["Title"] = loai;
 }
 
+<input type="hidden" value="@ViewBag.Loai?.MaLoai" id="MaLoaiField" />
 
 <div class="container">
     <div class="shop-inner">
@@ -44,7 +45,17 @@
                 </div>
             </div>
         </div>
-        <div class="product-grid-area">
+
+        <!--Panel tìm kiếm-->
+        <div class="row m-0">
+            <span class="col-md-3 text-right">Cần tìm</span>
+            <div class="col-md-6">
+                <input placeholder="Tên hàng hóa cần tìm" id="TenCanTim" class="form-control" />
+            </div>
+            <button type="button" id="btnTim" class="btn btn-success">Tìm</button>
+        </div>
+
+        <div class="product-grid-area" id="LuoiHangHoa">
             <ul class="products-grid">
                 @foreach (var hh in Model)
                 {
@@ -77,7 +88,7 @@
                                                 <div class="price-box"> <span class="regular-price"> <span class="price">@hh.DonGia.ToString("#,##0")</span> </span> </div>
                                             </div>
                                             <div class="pro-action">
-                                                <button type="button" class="add-to-cart"><span> Add to Cart</span> </button>
+                                                <button type="button" class="add-to-cart mua-ngay" data-mahh="@hh.MaHh" data-tenhh="@hh.TenHh"><span>Mua ngay</span> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -100,3 +111,60 @@
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        $(function () {
+            //gắn sự kiện click nút mua ngay
+            $(".mua-ngay").click(function () {
+                var mahh = $(this).attr("data-mahh");
+                var tenhh = $(this).attr("data-tenhh");
+                $.ajax({
+                    url: "/Cart/AddToCart",
+                    type: "post",
+                    data: {
+                        productId: mahh, qty: 1,
+                        loai: "AJAX"
+                    },
+                    success: function (result) {
+                        //alert("Thêm thành công");
+                        Swal.fire({
+                            title: 'Thông báo',
+                            html: "Thêm hàng hóa <b>" + tenhh + "</b> thành công",
+                            type: 'success'
+                        });
+                        $(".cart-total").html(result.soLuong);
+                    }
+                });
+            });
+
+            $("#TenCanTim").keyup(function () {
+                //Quy định tối thiểu 3 kí tự
+                if ($(this).val().trim().length < 3) return false;
+
+                $.ajax({
+                    url: "/HangHoa/TimKiem",
+                    data: {
+                        TuKhoa: $("#TenCanTim").val().trim().toLowerCase(),
+                        MaLoai: $("#MaLoaiField").val()
+                    },
+                    success: function (response) {
+                        $("#LuoiHangHoa").html(response);
+                    }
+                });
+            });
+
+            $("#btnTim").click(function () {
+                $.ajax({
+                    url: "/HangHoa/TimKiem",
+                    data: {
+                        TuKhoa: $("#TenCanTim").val().trim().toLowerCase(),
+                        MaLoai: $("#MaLoaiField").val()
+                    },
+                    success: function (response) {
+                        $("#LuoiHangHoa").html(response);
+                    }
+                });
+            });
+        });
+    </script>
+}

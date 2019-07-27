@@ -10,6 +10,11 @@ namespace MyShopK6.Controllers
 {
     public class HomeController : Controller
     {
+        public string GetServerTime()
+        {
+            return DateTime.Now.ToString("dd/MM/yyyy HH:mm:sss");
+        }
+
         public IActionResult Index()
         {
             return View();

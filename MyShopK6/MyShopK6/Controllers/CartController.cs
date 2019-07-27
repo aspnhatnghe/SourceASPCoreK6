@@ -38,7 +38,7 @@ namespace MyShopK6.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToCart(int productId, int qty)
+        public IActionResult AddToCart(int productId, int qty, string loai)
         {
             //Lấy giỏ hàng đang có ở Session
             List<CartItem> carts = Cart;
@@ -67,10 +67,19 @@ namespace MyShopK6.Controllers
             //update lại giỏ hàng
             HttpContext.Session.SetObject("GioHang", carts);
 
+            if (loai == "AJAX")
+            {
+                return Json(new
+                {
+                    SoLuong = Cart.Sum(p => p.SoLuong),
+                    TongTien = Cart.Sum(p => p.ThanhTien)
+                });
+            }
+
             return RedirectToAction("Index");
         }
 
-        public IActionResult RemoveCart(int id)
+        public IActionResult RemoveCart(int id, string loai)
         {
             List<CartItem> carts = Cart;
 
@@ -80,6 +89,14 @@ namespace MyShopK6.Controllers
                 carts.Remove(item);
 
                 HttpContext.Session.SetObject("GioHang", carts);
+            }
+
+            if(loai == "AJAX")
+            {
+                return Json(new {
+                    SoLuong = Cart.Sum(p => p.SoLuong),
+                    TongTien = Cart.Sum(p => p.ThanhTien)
+                });
             }
 
             return RedirectToAction("Index");
