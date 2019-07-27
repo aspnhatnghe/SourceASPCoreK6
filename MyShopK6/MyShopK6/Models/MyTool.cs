@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyShopK6.Models
@@ -30,6 +31,27 @@ namespace MyShopK6.Models
         public static string ToVND(this double dongia)
         {
             return $"{dongia.ToString("#,##0")} đ";
+        }
+
+        public static string ToUrlFriendly(this string url)
+        {
+            url = url.ToLower();
+
+            //Lọc bỏ từ tiếng Việt
+            url = Regex.Replace(url, @"[áàạảãâấầậẩẫăắằặẳẵ]", "a");
+            url = Regex.Replace(url, @"[éèẹẻẽêếềệểễ]", "e");
+            url = Regex.Replace(url, @"[óòọỏõôốồộổỗơớờợởỡ]", "o");
+            url = Regex.Replace(url, @"[úùụủũưứừựửữ]", "u");
+            url = Regex.Replace(url, @"[íìịỉĩ]", "i");
+            url = Regex.Replace(url, @"đ", "d");
+            url = Regex.Replace(url, @"[ýỳỵỷỹ]", "y");
+
+            //thay thế theo chuẩn URL friendly
+            url = Regex.Replace(url, @"[^a-z0-9\s-]", "");
+            url = Regex.Replace(url, @"\s+", "-");
+            url = Regex.Replace(url, @"\s", "-");
+
+            return url;
         }
     }
 }
