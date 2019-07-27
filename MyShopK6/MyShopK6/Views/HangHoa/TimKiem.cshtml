@@ -32,7 +32,7 @@
                                     <div class="price-box"> <span class="regular-price"> <span class="price">@hh.DonGia.ToString("#,##0")</span> </span> </div>
                                 </div>
                                 <div class="pro-action">
-                                    <button type="button" class="add-to-cart"><span> Add to Cart</span> </button>
+                                    <button type="button" class="add-to-cart mua-ngay" data-mahh="@hh.MaHh" data-tenhh="@hh.TenHh"><span>Mua ngay</span> </button>
                                 </div>
                             </div>
                         </div>
@@ -43,3 +43,31 @@
     }
 
 </ul>
+
+
+<script>
+    $(function () {
+        //gắn sự kiện click nút mua ngay
+        $(".mua-ngay").click(function () {
+            var mahh = $(this).attr("data-mahh");
+            var tenhh = $(this).attr("data-tenhh");
+            $.ajax({
+                url: "/Cart/AddToCart",
+                type: "post",
+                data: {
+                    productId: mahh, qty: 1,
+                    loai: "AJAX"
+                },
+                success: function (result) {
+                    //alert("Thêm thành công");
+                    Swal.fire({
+                        title: 'Thông báo',
+                        html: "Thêm hàng hóa <b>" + tenhh + "</b> thành công",
+                        type: 'success'
+                    });
+                    $(".cart-total").html(result.soLuong);
+                }
+            });
+        });
+    });
+</script>
