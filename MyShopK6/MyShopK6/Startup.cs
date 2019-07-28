@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -45,13 +46,19 @@ namespace MyShopK6
                 opt.IdleTimeout = TimeSpan.FromMinutes(5);
                 opt.Cookie.IsEssential = true;
             });
-            
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => {
+                options.LoginPath = "/KhachHang/Login";
+                options.LogoutPath = "/KhachHang/Logout";
+                options.AccessDeniedPath = "/KhachHang/AccessDenied";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSession();
+            app.UseAuthentication();
 
             if (env.IsDevelopment())
             {

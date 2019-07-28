@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyShopK6.Models;
 
 namespace MyShopK6.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190728023842_AddKhachHang")]
+    partial class AddKhachHang
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,11 +66,9 @@ namespace MyShopK6.Migrations
                         .HasMaxLength(150);
 
                     b.Property<string>("DienThoai")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(150);
 
                     b.Property<string>("HoTen")
@@ -80,7 +80,6 @@ namespace MyShopK6.Migrations
                     b.Property<DateTime>("LastLogin");
 
                     b.Property<string>("MatKhau")
-                        .IsRequired()
                         .HasMaxLength(150);
 
                     b.Property<string>("RandomKey")
