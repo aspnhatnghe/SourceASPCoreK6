@@ -78,5 +78,10 @@ namespace MyShopK6.Controllers
 
             return PartialView(hangHoas);
         }
+
+        public IActionResult SoSanh()
+        {
+            return View();
+        }
     }
 }

@@ -122,5 +122,10 @@ namespace MyShopK6.Controllers
             }
             return Json(data: true);
         }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }
