@@ -2,12 +2,15 @@
 @{
     ViewData["Title"] = "Index";
 }
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
 
 <h2>Danh sách Loại</h2>
-<button type="button" class="btn btn-primary" id="btnThemMoi">Thêm mới</button>
+<button type="button" class="btn btn-primary m-2
+        " id="btnThemMoi">Thêm mới</button>
 
 <div>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="tblLoai">
         <thead>
             <tr>
                 <th>Mã loại</th>
@@ -21,6 +24,7 @@
     </table>
 </div>
 <div id="ChiTietLoai">
+    <h3 class="text-danger font-weight-bold text-center">THÔNG TIN LOẠI</h3>
     <div class="row">
         <div class="col-4 text-right">Mã loại</div>
         <div class="col-8 text-danger" id="lblMaLoai">
@@ -29,13 +33,13 @@
     <div class="row m-1">
         <div class="col-4 text-right">Tên loại</div>
         <div class="col-8 text-danger">
-            <input id="txtTenLoai" />
+            <input id="txtTenLoai" class="form-control" />
         </div>
     </div>
     <div class="row m-1">
         <div class="col-4 text-right">Mô tả loại</div>
         <div class="col-8 text-danger">
-            <textarea id="txtMoTa"></textarea>
+            <textarea id="txtMoTa" class="form-control"></textarea>
         </div>
     </div>
     <div class="row m-1">
@@ -111,7 +115,7 @@
             var loai = new Object();
             //loai.maLoai = $("#lblMaLoai").html();
             loai.tenLoai = $("#txtTenLoai").val();
-            loai.moTa = $("#txtMoTa").html();
+            loai.moTa = $("#txtMoTa").val();
             loai.hinh = "N/A";
 
             //if (loai.maLoai == "")//thêm mới
@@ -123,12 +127,23 @@
                     dataType: "json",
                     contentType: 'application/json',
                     success: function (item) {
-                        addNewRow(item);
+                        //addNewRow(item);
+                        //Thêm dòng vào dataTable
+                        var t = $('#tblLoai').DataTable();
+                        t.row.add([
+                            item.maLoai,
+                            item.tenLoai,
+                            item.hinh,
+                            item.moTa,
+                            '<button type="button" data-id="' + item.maLoai + '" data-name="' + item.tenLoai + '" class="btn btn-danger remove-loai"><i class= "far fa-trash-alt"></i></button>'
+                        ]).draw(false);
+
                         addEventRemove();
+
                         Swal.fire(
-                            'Thông báo','Thêm thành công','success'
+                            'Thông báo', 'Thêm thành công', 'success'
                         );
-                        
+
                     },
                     error: function (mess) {
                         Swal.fire(
@@ -147,9 +162,13 @@
                 //duyệt qua từng phần tử --> tạo dòng thêm vào bảng
                 $(data).each(function (index, item) {
                     addNewRow(item);
-                });//end .each()
+                });
 
+                //gắn sự kiện
                 addEventRemove();
+
+                //phân trang
+                $('#tblLoai').DataTable();
             },
             error: function (xhr, option, errMess) {
                 Swal.fire({
