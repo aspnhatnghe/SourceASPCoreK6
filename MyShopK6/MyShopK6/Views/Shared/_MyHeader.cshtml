@@ -1,4 +1,4 @@
-﻿@* 
+﻿@*
     Partial View: hiển thị phần đầu trang
     _MyHeader.cshtml
 *@
@@ -21,15 +21,21 @@
                         <li><a title="Checkout" href="checkout.html"><span>Checkout</span></a></li>
                         <li>
                             <div class="dropdown">
-                                <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>My Account</span> <i class="fa fa-angle-down"></i></a>
+                                <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>@((User.Identity.IsAuthenticated)? "Hi " + User.Identity.Name : "My Account")</span> <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="account_page.html">Account</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="orders_list.html">Order Tracking</a></li>
-                                    <li><a href="/Home/About">About us</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="/KhachHang/Login">Log In</a></li>
-                                    <li><a href="/KhachHang/Register">Register</a></li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a asp-action="Profile" asp-controller="KhachHang">Account</a></li>
+                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                        <li><a href="orders_list.html">Order Tracking</a></li>
+                                        <li><a href="/Home/About">About us</a></li>
+                                        <li><a asp-action="Logout" asp-controller="KhachHang">Logout</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-action="Login" asp-controller="KhachHang">Log In</a></li>
+                                        <li><a asp-action="Register" asp-controller="KhachHang">Register</a></li>
+                                    }
                                 </ul>
                             </div>
                         </li>

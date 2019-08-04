@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyShopK6.Models;
 
 namespace MyShopK6.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190804025204_AddRole")]
+    partial class AddRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,30 +48,26 @@ namespace MyShopK6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DiaChiGiao");
-
                     b.Property<string>("MaKh")
                         .HasMaxLength(50);
-
-                    b.Property<int>("MaPt");
-
-                    b.Property<int>("MaTt");
 
                     b.Property<DateTime>("NgayDat");
 
                     b.Property<DateTime?>("NgayGiao");
 
-                    b.Property<string>("NguoiNhan");
+                    b.Property<int?>("PhuongThucThanhToanMaPt");
 
                     b.Property<double>("TongTien");
+
+                    b.Property<int?>("TrangThaiMaTt");
 
                     b.HasKey("MaDh");
 
                     b.HasIndex("MaKh");
 
-                    b.HasIndex("MaPt");
+                    b.HasIndex("PhuongThucThanhToanMaPt");
 
-                    b.HasIndex("MaTt");
+                    b.HasIndex("TrangThaiMaTt");
 
                     b.ToTable("DonHang");
                 });
@@ -243,13 +241,11 @@ namespace MyShopK6.Migrations
 
                     b.HasOne("MyShopK6.Models.PhuongThucThanhToan", "PhuongThucThanhToan")
                         .WithMany()
-                        .HasForeignKey("MaPt")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PhuongThucThanhToanMaPt");
 
                     b.HasOne("MyShopK6.Models.TrangThai", "TrangThai")
                         .WithMany()
-                        .HasForeignKey("MaTt")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TrangThaiMaTt");
                 });
 
             modelBuilder.Entity("MyShopK6.Models.HangHoa", b =>

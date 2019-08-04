@@ -43,5 +43,13 @@ namespace MyShopK6.Models
         public string RandomKey { get; set; }
         public DateTime LastLogin { get; set; }
         public bool IsActive { get; set; }
+        public string Role { get; set; } = MyRole.Customer;
+    }
+
+    public class MyRole
+    {
+        public static string Admin = "Admin";
+        public static string Customer = "Customer";
+        public static string Guest = "Guest";
     }
 }

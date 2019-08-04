@@ -12,6 +12,7 @@ namespace MyShopK6.Models
     {
         [Key]
         public int MaCt { get; set; }
+        public int MaDh { get; set; }
         public int MaHh { get; set; }
         public int SoLuong { get; set; }
         public double DonGia { get; set; }
@@ -20,5 +21,7 @@ namespace MyShopK6.Models
         public double ThanhTien => SoLuong * GiaBan;
         [ForeignKey("MaHh")]
         public HangHoa HangHoa { get; set; }
+        [ForeignKey("MaDh")]
+        public DonHang DonHang { get; set; }
     }
 }

@@ -1,0 +1,33 @@
+﻿@model CheckoutModelView
+@{
+    ViewData["Title"] = "Checkout";
+}
+<div class="container page-content checkout-page m-4">
+    <h2>Checkout</h2>
+    <h4 class="checkout-sep">1. Billing Infomations</h4>
+    <form asp-action="Checkout">
+        <div class="box-border">
+            <ul>
+                <li class="row">
+                    <div class="col-xs-12">
+                        <label asp-for="NguoiNhan"></label>
+                        <input asp-for="NguoiNhan" class="input form-control">
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-xs-12">
+                        <label asp-for="DiaChiGiao"></label>
+                        <input asp-for="DiaChiGiao" class="input form-control">
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-xs-12">
+                        <label asp-for="MaPt"></label>
+                        <select asp-for="MaPt" asp-items="@ViewBag.PhuongThucTt" class="input form-control"></select>
+                    </div>
+                </li>
+            </ul>
+            <button class="button"><i class="fa fa-angle-double-right"></i>&nbsp; <span>Thanh toán</span></button>
+        </div>
+    </form>
+</div>

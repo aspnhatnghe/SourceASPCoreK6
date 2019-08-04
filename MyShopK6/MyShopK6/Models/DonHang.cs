@@ -16,8 +16,14 @@ namespace MyShopK6.Models
         public DateTime? NgayGiao { get; set; }
         [MaxLength(50)]
         public string MaKh { get; set; }
+        public string NguoiNhan { get; set; }
+        public string DiaChiGiao { get; set; }
         public double TongTien { get; set; }
+        public int MaPt { get; set; }
+        public int MaTt { get; set; }
+        [ForeignKey("MaTt")]
         public TrangThai TrangThai { get; set; }
+        [ForeignKey("MaPt")]
         public PhuongThucThanhToan PhuongThucThanhToan { get; set; }
         [ForeignKey("MaKh")]
         public KhachHang KhachHang { get; set; }
